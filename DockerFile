@@ -1,0 +1,23 @@
+#Use another Docker image as a template for our image.
+#For this excersice, we will use the offcical Node.js image with Node v7.
+FROM node:7
+
+#Set the working directory in container to /app.
+#We will use this directory to store files, run npm, and launch our application
+WORKDIR /app
+
+#Copies the package.json file to the /app directory we created in the previous command
+COPY package-lock.json /app
+
+#Install the dependencies specified in package.json
+RUN npm install
+
+#Copy application to /app directory
+COPY  . /app
+
+#This line describes what should be executed whem the Docker image is launching.  
+#What we want to do is to run the application app.js
+CMD node webapp.js
+
+#Expose port 3000 to the outside once the container is launched.
+EXPOSE 3000
